@@ -1,76 +1,84 @@
 # linux
 Here, I will put some of the most important Linux commands and their possible explanations, these commands are used most of the time for any data, file manipulation or to monitor the processor, networking etc 
 
-Common Linux Commands
-Process:
-find the open process : netstat -tulp
-find the status of any specific process - ps aux | grep mysql
-To kill any user session from linux
-w
-ps -ft tty
-kill pid
+# **Common Linux Commands**
+### Process:
+- find the open process : netstat -tulp
+- find the status of any specific process - ps aux | grep mysql
+- To kill any user session from linux
+				w
+				ps -ft tty
+				kill pid
 
-System performance:
+### System performance:
 To see the Memory & CPU utilisation
-Every process is given a specified amount of time to run on the CPU. The actual time for which the process is running on the CPU is called the virtual runtime of the process.
+Every process is given a specified amount of time to run on the CPU. 
+The actual time for which the process is running on the CPU is called the `virtual runtime` of the process.
 
-command : vmstat 
+command : `vmstat` 
 
+``` 
 procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
  r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
  0  0      0 287788 143396 2847152    0    0     9     4    1    1  0  0 100  0  0
 
-
-	Procs
-r: number of processes waiting for run time.
-b: number of processes in uninterruptible sleep.
-Memory
-swpd: amount of virtual memory used.
-free: amount of idle memory.
-buff: the amount of memory used as buffers.
-cache: amount of memory used as cache.
-Swap
-si: memory swapped in from disk (/s).
-so: memory swapped to disk (/s).
-IO
-bi: Blocks received from a block device (blocks/s).
-bo: Blocks sent to a block device (blocks/s).
-System
-in: number of interrupts per second, including the clock.
-cs: number of context switches per second.
-CPU – These are percentages of total CPU time.
-us: Time spent running non-kernel code. (user time, including nice time)
-sy: Time spent running kernel code. (system time)
-id: Time spent idle. Before Linux 2.5.41, this includes IO-wait time.
-wa: Time spent waiting for IO. Before Linux 2.5.41, included in idle.
-st: Time stolen from a virtual machine. Before Linux 2.6.11, unknown.
+```
 
 
-Network Troubleshooting | Linux specific
 
-Static routes:
-	route -n  Old style or depricated
-	ip route show or ip r [ New style ]
 
-TCP: It is a Layer 4 protocol along with UDP
+- Procs
+		r: number of processes waiting for run time.
+		b: number of processes in uninterruptible sleep.
+- Memory
+		swpd: amount of virtual memory used.
+		free: amount of idle memory.
+		buff: the amount of memory used as buffers.
+		cache: amount of memory used as cache.
+- Swap
+		si: memory swapped in from disk (/s).
+		so: memory swapped to disk (/s).
+		IO
+		bi: Blocks received from a block device (blocks/s).
+		bo: Blocks sent to a block device (blocks/s).
+- System
+		in: number of interrupts per second, including the clock.
+		cs: number of context switches per second.
+- CPU – These are percentages of total CPU time.
+		us: Time spent running non-kernel code. (user time, including nice time)
+		sy: Time spent running kernel code. (system time)
+		id: Time spent idle. Before Linux 2.5.41, this includes IO-wait time.
+		wa: Time spent waiting for IO. Before Linux 2.5.41, included in idle.
+		st: Time stolen from a virtual machine. Before Linux 2.6.11, unknown.
+
+
+# Network Troubleshooting | Linux specific
+
+## Static routes:
+`route -n` ***Old style or depricated***
+`ip route show` or 
+`ip r` [ New style ]
+
+### TCP: It is a Layer 4 protocol along with UDP
 
 ![img-1](https://github.com/partho-dev/linux/assets/150241170/c0d4e0ec-6cb3-4ce0-a2fe-55a644a97555)
 
-It is a reliable protocol
-It ensures the packet reaches to the target destination, 
-if it does not get any acknowledgement, the packets are re-sent again
-The data on Layer 4 are called as “Segment”
-Segment --> Packet ---> Frame
+1. It is a reliable protocol
+2. It ensures the packet reaches to the target destination, 
+3. if it does not get any acknowledgement, the packets are re-sent again
+4. The data on Layer 4 are called as “Segment”
+5. Segment --> Packet ---> Frame
 
-Linux File system : 
-the file system hierarchy of linux is very important to understand.
-based on the usage of the server [Web server, file server ] the partitions can be mounted.
-For example, if its a file server, the most important partition would be /home 
+## Linux File system : 
+	The file system hierarchy of linux is very important to understand.
+	based on the usage of the server [Web server, file server ] the partitions can be mounted.
+
+For example, if its a `file server`, the most important partition would be `/home` 
 so, it is recommended to have a separate partition on the server.
-/tmp is always recommended to have separate partitions.
-/var/www would be required to have a separate partition for the web server.
+	/tmp is always recommended to have separate partitions.
+	/var/www would be required to have a separate partition for the web server.
 
-/home is used to store all the user information (user profiles), if a new user “partho” is created, there will be a new directory created automatically under /home as /home/partho
+`/home` is used to store all the user information (user profiles), if a new user “partho” is created, there will be a new directory created automatically under /home as /home/partho
 
 /usr - this is used to store all information about any application that is installed on the server, [ Apps are stored here ]
 /etc  “et-see” this is used to store all configuration related information about the server, it is always recommended to keep a backup of this [ cp /etc /etc.old]
