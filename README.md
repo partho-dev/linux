@@ -258,3 +258,36 @@ mkdir partho && cd partho
 <!-- For 1 the command will execute if there is any error in some middle, it will go to next command
 For 2 if there is any error, it will not go to the next command, the cycle breaks -->
 ```
+
+
+> ## Key Concepts and Validation
+
+- Default Home Directory and Hidden Files:
+    - When a user is created, their home directory is set to `/home/username` by default (unless overridden with the -d flag during user creation).
+    - The hidden files like `.bash_history, .bashrc, and .bash_logout` are indeed created in the user's home directory.
+
+- Source of Default Files:
+    - These default files are copied from the `/etc/skel` directory when a new user is created.
+    - `/etc/skel` acts as a "template" directory for user home directories. 
+    - Any files or directories in `/etc/skel` are automatically copied to the `newly created user home directory`.
+
+- Purpose of `.bashrc`:
+    - The `.bashrc` file is executed for interactive non-login shells. 
+    - It contains `user-specific aliases`, `functions`, and `environment customizations`.
+    - The `.bashrc` is not necessarily the last file executed during login. 
+    - For login shells, `.bash_profile` or .profile (if .bash_profile doesn't exist) is executed first, and these can source .bashrc.
+
+- Order for Login Shells:
+    - `/etc/profile → .bash_profile → .bashrc`
+
+- Customizing Messages or Aliases:
+    - Placing custom instructions or messages in the `/etc/skel/.bashrc` will ensure they are copied to all new user accounts and displayed during login 
+    - Example: `echo "Welcome to the system!" >> /etc/skel/.bashrc`
+    - Adding aliases or functions in `/etc/skel/.bashrc` (or creating files like /etc/skel/policy.txt and referencing them) will apply these customizations to new users.
+
+- Customizing `Logout` Behavior with `.bash_logout`:
+
+  - Actions to perform when a user logs out from a login shell can be added to `.bash_logout`.
+- Example for backing up /var/www/html: `echo "cp -r /var/www/html /tmp/backup_html" >> /etc/skel/.bash_logout`
+
+- Limitation: .bash_logout is executed only for login shells. If a user closes a non-login terminal or a graphical session, .bash_logout won't execute. For broader logout tasks, consider using session managers or system-level hooks.
